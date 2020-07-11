@@ -24,7 +24,7 @@ print(df['Fuel_Type'].unique())
 print(df.isnull().sum())
 
 
-# Describe the dataframe
+# Describe the data frame
 print(df.describe())
 print(df.describe(
     include=['object']
@@ -33,6 +33,24 @@ print(df.info())
 
 
 # Drooping the Car name as it will not have bg impact
-final_dataset = df[['Year', 'Selling_Price', 'Present_Price', 'Kms_Driven', 'Fuel_Type', 'Seller_Type', 'Transmission', 'Owner']]
 
-print(final_dataset.head())
+final_data = df[['Year', 'Selling_Price', 'Present_Price', 'Kms_Driven', 'Fuel_Type', 'Seller_Type', 'Transmission', 'Owner']]
+
+print(final_data.head())
+
+
+# Creating new feature
+
+final_data['current_year'] = 2020
+final_data['no_of_years'] = final_data['current_year'] - final_data['Year']
+print(final_data.head())
+
+
+# Dropping the columns year and current_year
+final_data.drop(['current_year', 'Year'], inplace=True, axis=1)
+print(final_data.head())
+
+
+# convert categorical variables into numeric columns
+final_data = pd.get_dummies(final_data, drop_first=True)
+print(final_data.head())
