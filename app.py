@@ -64,7 +64,26 @@ print(final_data.corr())
 # print(plt.show())
 
 # Plotting heat map
-corr_mat = final_data.corr()
-print(corr_mat)
-top_corr = corr_mat.index
-plt.figure(figsize=(20, 20), )
+# Here correlation uses pearson correlation
+plt.figure(figsize=(15, 15))
+sns.heatmap(final_data.corr(), annot=True)
+plt.tight_layout()
+# print(plt.show())
+
+
+# Splitting into dependent and independent features
+X = final_data.iloc[:, 1:]
+Y = final_data.iloc[:, 0]
+print(X.head())
+print(type(X))
+print(Y.head())
+print(type(Y))
+
+# Feature Importance
+
+from sklearn.ensemble import ExtraTreesRegressor
+
+extra_tree_regressor = ExtraTreesRegressor()
+extra_tree_regressor.fit(X, Y)
+
+print(extra_tree_regressor.feature_importances_)
